@@ -1,0 +1,10 @@
+{
+  "id": "assistant",
+  "label": "Assistant IA",
+  "route": "/",
+  "enabled": true,
+  "roles": ["*"],
+  "description": "Chatbot intelligent pour poser des questions et naviguer",
+  "keywords": ["assistant", "chat", "aide", "question", "chatbot", "ia", "bot"],
+  "actions": []
+}

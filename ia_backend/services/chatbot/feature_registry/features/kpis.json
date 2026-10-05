@@ -1,0 +1,113 @@
+{
+  "id": "kpis",
+  "label": "Consolidation des KPIs",
+  "route": "/kpis",
+  "enabled": true,
+  "roles": ["*"],
+  "description": "Tableau de bord financier consolidé — 12 indicateurs clés avec variations N/N-1, détail des comptes ANC/PCG et références IFRS, analyse IA streaming.",
+  "keywords": [
+    "kpi", "dashboard", "indicateurs", "consolidation", "tableau de bord",
+    "chiffre d'affaires", "ca", "résultat net", "capex", "capitaux propres",
+    "endettement net", "effectifs", "etp", "ebitda", "trésorerie", "dette nette",
+    "marge brute", "anc", "pcg", "ifrs", "analyse financière", "performance",
+    "rentabilité", "liquidité", "variation", "n-1", "synthèse", "intercos",
+    "transactions intra-groupe", "cohérence", "anomalie", "flux"
+  ],
+  "actions": [
+    {
+      "id": "kpis.analyse-globale",
+      "label": "Analyser avec l'IA (global)",
+      "description": "Génère une analyse financière IA complète de tous les KPIs affichés (streaming)"
+    },
+    {
+      "id": "kpis.prompt.synthese-executive",
+      "label": "Synthèse exécutive",
+      "description": "Note de synthèse : performance opérationnelle, rentabilité, cash, structure financière, vigilance, recommandations"
+    },
+    {
+      "id": "kpis.prompt.evolution-nn1",
+      "label": "Évolution N/N-1",
+      "description": "Analyse comparative N vs N-1 : variations significatives, causes principales, impact global"
+    },
+    {
+      "id": "kpis.prompt.coherence-kpis",
+      "label": "Cohérence des KPIs / intercos",
+      "description": "Détecte contradictions CA/marge/cash, intercos, écarts de périmètre, signaux d'alerte transversaux, anomalies"
+    },
+    {
+      "id": "kpis.prompt.risques-liquidite",
+      "label": "Risques & liquidité",
+      "description": "Synthèse des risques, couverture des dettes, ratios clés, points d'alerte prioritaires"
+    },
+    {
+      "id": "kpis.prompt.analyse-kpi",
+      "label": "Analyse approfondie d'un KPI",
+      "description": "Analyse ciblée sur un KPI : synthèse, décomposition des composantes, ratios métier, corrélations"
+    },
+    {
+      "id": "kpis.prompt.drivers-kpi",
+      "label": "Drivers d'un KPI",
+      "description": "Principaux leviers opérationnels d'un KPI, effets structurels vs ponctuels, impact rentabilité et cash"
+    },
+    {
+      "id": "kpis.prompt.vigilance-kpi",
+      "label": "Points de vigilance d'un KPI",
+      "description": "Seuils critiques, risques associés au KPI, impacts potentiels bilan / trésorerie"
+    },
+    {
+      "id": "kpis.prompt.recommandations-kpi",
+      "label": "Recommandations actionnables sur un KPI",
+      "description": "3 recommandations ciblées : action, responsable, objectif mesurable, horizon CT/MT"
+    },
+    {
+      "id": "kpis.analyse-kpi",
+      "label": "Analyser un KPI spécifique",
+      "description": "Analyse IA ciblée sur un indicateur spécifique (déclenché au clic sur une carte KPI)"
+    },
+    {
+      "id": "kpis.detail-comptable",
+      "label": "Détail comptable ANC/PCG & IFRS",
+      "description": "Décomposition des comptes ANC/PCG et références IFRS pour un KPI donné"
+    },
+    {
+      "id": "kpis.affiner",
+      "label": "Affiner l'analyse",
+      "description": "Saisir une question libre pour approfondir ou réorienter l'analyse IA en cours"
+    },
+    {
+      "id": "kpis.modifier",
+      "label": "Modifier l'analyse",
+      "description": "Ouvre l'éditeur rich text TipTap pour éditer manuellement le rapport IA"
+    },
+    {
+      "id": "kpis.sauvegarder",
+      "label": "Sauvegarder les modifications",
+      "description": "Sauvegarde le contenu édité dans l'éditeur TipTap"
+    },
+    {
+      "id": "kpis.relancer",
+      "label": "Relancer l'analyse",
+      "description": "Régénère l'analyse IA depuis zéro pour la période et le périmètre en cours"
+    },
+    {
+      "id": "kpis.export-pdf",
+      "label": "Exporter en PDF",
+      "description": "Télécharge le rapport d'analyse IA au format PDF"
+    },
+    {
+      "id": "kpis.export-word",
+      "label": "Exporter en Word",
+      "description": "Télécharge le rapport d'analyse IA au format Word .docx"
+    },
+    {
+      "id": "kpis.filter-periode",
+      "label": "Changer la période",
+      "description": "Sélectionner Q1, Q2, Q3 ou Q4 pour recharger tous les KPIs"
+    },
+    {
+      "id": "kpis.filter-perimetre",
+      "label": "Changer le périmètre",
+      "description": "Sélectionner Global, Region, Business Unit ou Country"
+    }
+  ]
+}
