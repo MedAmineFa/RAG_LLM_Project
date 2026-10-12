@@ -107,7 +107,7 @@ Valid instructions are typed as `enrichment`, `wording`, or `correction`.
         │                         │
 ┌───────▼───────────┐     ┌───────▼───────┐
 │ PostgreSQL        │     │   Groq API    │
-│ + pgvector        │     │ Llama 4 Scout │
+│ + pgvector        │   |openai/gpt-oss-120b│
 │  • documents      │     └───────────────┘
 │  • features       │
 └───────▲───────────┘
@@ -137,7 +137,7 @@ Valid instructions are typed as `enrichment`, `wording`, or `correction`.
 | Layer | Technology |
 |---|---|
 | Backend | Python 3.11+, FastAPI, Uvicorn |
-| LLM | `meta-llama/llama-4-scout-17b-16e-instruct` via Groq API |
+| LLM | 	'openai/gpt-oss-120b' via Groq API |
 | RAG / agents | LangChain, LangGraph |
 | Embeddings | Ollama (`nomic-embed-text-v2-moe`) |
 | Vector store | PostgreSQL + pgvector (`langchain-postgres`) |
@@ -146,6 +146,7 @@ Valid instructions are typed as `enrichment`, `wording`, or `correction`.
 | Rich-text editor | TipTap |
 | Markdown rendering | react-markdown, KaTeX |
 | Export | `docx` (Word), `jsPDF` (PDF) |
+| Containerization | 	Docker, Docker Compose (pgvector/pgvector:pg16, ollama/ollama) |
 
 ---
 
@@ -153,7 +154,11 @@ Valid instructions are typed as `enrichment`, `wording`, or `correction`.
 
 ```
 .
+├── docker-compose.yml                  # Full stack
 ├── ia_backend/
+│   ├── Dockerfile
+│   ├── .dockerignore
+│   ├── .env.example
 │   ├── app.py                          # FastAPI entry point (CORS, routers)
 │   ├── requirements.txt
 │   ├── finance.pdf                     # Sample reference document
@@ -179,6 +184,8 @@ Valid instructions are typed as `enrichment`, `wording`, or `correction`.
 │           ├── chiffrement.py          # Value tokenization
 │           └── dechiffrement.py        # Streaming de-tokenization
 └── ia_assistant/                       # React frontend
+    ├── Dockerfile
+    ├── .dockerignore
     └── src/
         ├── pages/assisant/             # Chat page
         ├── pages/kpis/KpisPage.tsx     # KPI dashboard, editor, export
@@ -297,7 +304,7 @@ Open `http://localhost:5173`:
 // Response
 {
   "answer": "…",
-  "model_used": "meta-llama/llama-4-scout-17b-16e-instruct",
+  "model_used": "	openai/gpt-oss-120b",
   "navigation": null,
   "success": true
 }
