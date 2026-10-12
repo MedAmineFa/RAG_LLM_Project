@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-MODEL = "meta-llama/llama-4-scout-17b-16e-instruct"
+MODEL = "openai/gpt-oss-120b"
 API_URL = "https://api.groq.com/openai/v1/chat/completions"
 API_KEY = os.getenv("API_KEY")
 REQUEST_TIMEOUT = 30

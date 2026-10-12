@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 # ── Configuration ─────────────────────────────────────────────────────────
 load_dotenv()
 
-MODEL   = "meta-llama/llama-4-scout-17b-16e-instruct"
+MODEL   = "openai/gpt-oss-120b"
 API_URL = "https://api.groq.com/openai/v1/chat/completions"
 
 logging.basicConfig(level=logging.INFO)
@@ -199,8 +199,10 @@ DONNÉES :
 BLOC A — CONTRÔLE DE COHÉRENCE OBLIGATOIRE
 Exécuter AVANT toute analyse. Ne pas sauter cette étape.
 ═══════════════════════════════════════════
+Les codes R01 à R30 sont internes : ils servent à ton raisonnement, jamais à l'affichage.
+
 ── GROUPE A1 : IMPOSSIBILITÉS MATHÉMATIQUES ABSOLUES ──
-Ces cas sont toujours des erreurs. Si détectés → signaler comme ANOMALIE BLOQUANTE et ne pas interpréter le KPI concerné.
+Ces cas sont toujours des erreurs. Si détectés → ne pas interpréter le KPI concerné. Signaler l'anomalie UNIQUEMENT dans la Phrase 5 de la Synthèse Exécutive et dans la section Points de Vigilance (urgence : Critique), jamais avant le premier titre.
 
 R01 : Marge Brute > CA → impossible. Taux de marge ne peut pas dépasser 100%.
 R02 : CA Export > CA Total → impossible. La part ne peut pas dépasser le tout.
@@ -241,13 +243,13 @@ R28 : Endettement Net = 0 ou proche de zéro + Dette Nette > 0 → définitions 
 R29 : CA Export progresse fortement + CA Total stable → le marché domestique recule. Calculer et signaler la part implicite du marché domestique.
 R30 : Effectifs en hausse + EBITDA en baisse → les charges de personnel absorbent la marge. Signaler comme pression structurelle sur la rentabilité.
 
-── FORMAT DU RAPPORT DE COHÉRENCE ──
-Si au moins une règle est déclenchée → ouvrir l'analyse par :
-
-> **Note préliminaire sur la qualité des données**
-> *[Liste des règles déclenchées avec le KPI concerné, la valeur observée, et le niveau : ANOMALIE BLOQUANTE / A traiter rapidement / A surveiller]*
-
-Si aucune règle n'est déclenchée → ne pas mentionner ce bloc. Passer directement à la Synthèse Exécutive.
+── SORTIE DU CONTRÔLE DE COHÉRENCE ──
+INTERDIT : écrire une "Note préliminaire", une liste de règles, ou tout texte avant le premier titre.
+Le document commence OBLIGATOIREMENT par la ligne "## Synthèse Exécutive", sans aucun caractère avant.
+Les anomalies détectées apparaissent uniquement :
+  - brièvement dans la Phrase 5 de la Synthèse Exécutive (si applicable)
+  - dans la section "## Points de Vigilance" (avec la règle RXX)
+Si aucune règle n'est déclenchée → ne rien mentionner.
 
 ═══════════════════════════════════════════
 BLOC B — RÉFÉRENTIEL MÉTIER PAR KPI
@@ -287,6 +289,11 @@ Minimum 3 connexions explicites dans l'analyse globale. Utiliser : "ce qui s'exp
 C5 — RATIOS OBLIGATOIRES :
 Calculer et mentionner dans l'analyse tous les ratios rendus possibles par les données disponibles parmi : taux de marge brute, taux EBITDA/CA, Dette Nette/EBITDA, Charges Intérêts/EBITDA, Endettement Net/Capitaux Propres, CA Export/CA, CA/ETP, Trésorerie en mois de CA.
 
+C6 — CODES DE RÈGLES INTERDITS :
+Les identifiants R01 à R30 sont des références INTERNES. Ne JAMAIS les écrire dans le texte final.
+Décrire chaque anomalie en toutes lettres, par exemple : "marge brute supérieure au chiffre d'affaires",
+"CA export supérieur au CA total", "trésorerie inférieure à un mois de CA".
+
 ═══════════════════════════════════════════
 BLOC D — FORMAT MARKDOWN OBLIGATOIRE
 ═══════════════════════════════════════════
@@ -294,15 +301,14 @@ BLOC D — FORMAT MARKDOWN OBLIGATOIRE
 
 ## Synthèse Exécutive
 
-[FORMAT IMPÉRATIF : UN SEUL PARAGRAPHE EN PROSE CONTINUE. AUCUN TIRET, AUCUN BULLET, AUCUNE LISTE, AUCUN SAUT DE LIGNE ENTRE LES PHRASES.
-Le paragraphe enchaîne dans l'ordre, en prose fluide :
+[RÈGLES DE FORME : le titre "## Synthèse Exécutive" est seul sur sa ligne, suivi d'UNE ligne vide, puis d'UN SEUL PARAGRAPHE en prose continue. Les phrases s'enchaînent dans ce paragraphe, sans retour à la ligne entre elles.
+Le paragraphe enchaîne dans l'ordre :
 Phrase 1 : Diagnostic en un mot ou expression (Solide / Fragilisée / En tension / En redressement / En dégradation) suivi du contexte général.
 Phrase 2 : Les 2 signaux positifs majeurs avec les chiffres, reliés par "tandis que" ou "et".
 Phrase 3 : Le signal d'alerte principal avec les chiffres.
 Phrase 4 : La tendance structurelle sous-jacente.
-Phrase 5 (si applicable) : Mention des anomalies détectées.
-INTERDIT dans cette section : tirets "-", puces, numérotation, sous-titres, saut de ligne entre les phrases.]
-
+Phrase 5 (si applicable) : Mention brève des anomalies détectées, décrites en toutes lettres (jamais par code RXX).
+INTERDIT dans cette section : tirets "-", puces, numérotation, sous-titres, retour à la ligne entre les phrases, texte sur la même ligne que le titre.]
 
 ## Performance Opérationnelle
 
@@ -338,7 +344,7 @@ INTERDIT dans cette section : tirets "-", puces, numérotation, sous-titres, sau
 
 - **[Nom KPI]**
   - Nature : [Conjoncturel / Structurel / Donnée à vérifier]
-  - Valeur actuelle : [X] — Seuil critique : [Y] — Règle déclenchée : [RXX]
+  - Valeur actuelle : [X] — Seuil critique : [Y] — Anomalie : [description en toutes lettres, ex. Marge Brute supérieure au CA]
   - Impact potentiel : [sur quels KPIs ou décisions]
   - Urgence : [A surveiller / A traiter rapidement / Critique]
 
@@ -357,7 +363,7 @@ BLOC E — CHECKLIST AVANT RÉDACTION
 Vérifier dans l'ordre avant d'écrire la première phrase :
 
 [ ] E01 : Toutes les règles R01 à R30 ont été vérifiées sur les données
-[ ] E02 : Les anomalies détectées sont listées dans la Note préliminaire
+[ ] E02 : Le document commence directement par "## Synthèse Exécutive" (aucune note préliminaire)
 [ ] E03 : Tous les {kpi_count} KPIs sont couverts dans la bonne section
 [ ] E04 : Aucun symbole triangle utilisé
 [ ] E05 : Aucune année inventée
@@ -366,10 +372,11 @@ Vérifier dans l'ordre avant d'écrire la première phrase :
 [ ] E08 : Tous les ratios possibles sont calculés
 [ ] E09 : L'écart EBITDA / Résultat Net est chiffré et expliqué
 [ ] E10 : La Trésorerie est exprimée en mois de CA
-[ ] E11 : Points de Vigilance contiennent la règle déclenchée (RXX)
+[ ] E11 : Points de Vigilance décrivent l'anomalie en toutes lettres (aucun code RXX)
 [ ] E12 : Recommandations : 2 à 4 maximum, toutes avec verbe d'action et horizon temporel
 [ ] E13 : Titres respectent exactement ## et ### du format indiqué
 [ ] E14 : Aucune formule creuse dans la Synthèse Exécutive
+[ ] E15 : Aucun code R01 à R30 n'apparaît dans le texte final
 """
 
 
@@ -473,7 +480,8 @@ FORMAT MARKDOWN OBLIGATOIRE — NE PAS DÉVIER
 
 ## Synthèse
 
-[paragraphe de 3 phrases]
+[RÈGLES DE FORME : le titre "## Synthèse" est seul sur sa ligne, suivi d'UNE ligne vide, puis d'UN SEUL PARAGRAPHE en prose continue de 3 phrases. Les 3 phrases s'enchaînent dans ce paragraphe, sans retour à la ligne entre elles.
+INTERDIT dans cette section : tirets "-", puces, numérotation, sous-titres, retour à la ligne entre les phrases, texte sur la même ligne que le titre.]
 
 
 ## Analyse des Composantes
@@ -513,7 +521,7 @@ RÈGLES ABSOLUES
 3. Gras ** uniquement sur les libellés métier.
 4. Chaque ligne de la matrice dans une des 3 sous-sections.
 5. Ne JAMAIS reproduire les codes ANC/IFRS dans le texte final.
-6. Si une sous-section est vide, écrire **[AUCUN]** : Aucun élément significatif.
+6. Si une sous-section est vide, garder son titre ### seul sur sa ligne, puis écrire sur la ligne suivante exactement : "- **Aucun** : Aucun élément significatif." (toujours un item bullet avec le tiret, jamais de texte sur la même ligne que le titre ###).
 7. Utiliser TOUJOURS le tiret - pour les items bullet. Ne JAMAIS utiliser > (blockquote).
 
 """
@@ -603,11 +611,12 @@ Réponds UNIQUEMENT avec ce JSON (rien d'autre) :
                 "model": MODEL,
                 "messages": [{"role": "user", "content": classification_prompt}],
                 "temperature": 0.0,
-                "max_tokens": 200,
+                "max_tokens": 600,
+                "reasoning_effort": "low",
             },
             stream=False,
-            timeout=10,
-        )
+            timeout=20,
+        )   
         response.raise_for_status()
         raw = response.json()["choices"][0]["message"]["content"].strip()
         result = _parse_llm_json(raw)
@@ -869,34 +878,71 @@ Produis uniquement le document complet mis à jour, en commençant directement p
 
 # ── Stream function ────────────────────────────────────────────────────────
 
+# False = format historique "data: <texte>" (compatible avec decrypt_sse_stream tel quel).
+# True  = "data: <json>" : conserve les retours à la ligne, mais decrypt_sse_stream
+#         et le frontend doivent alors faire json.loads sur chaque message.
+JSON_ENCODE_SSE = False
+
+_FIRST_HEADING = re.compile(r"(?:^|\n)(## )")
+
+
+def _sse(text: str) -> str:
+    return f"data: {json.dumps(text)}\n\n" if JSON_ENCODE_SSE else f"data: {text}\n\n"
+
+
 def _stream_from_prompt(prompt: str):
     response = _post_with_retry(
         payload={
             "model": MODEL,
             "messages": [{"role": "user", "content": prompt}],
             "temperature": 0.3,
-            "max_tokens": 8000,
+            "max_tokens": 4500,
+            "reasoning_effort": "low",
         },
         stream=True,
         timeout=30,
     )
-    response.raise_for_status()
+    if not response.ok:
+        logger.error("Groq error %s: %s", response.status_code, response.text[:500])
+        response.raise_for_status()
+
+    # Filet de sécurité : tout ce qui précède le premier titre "## " est supprimé
+    buffer = ""
+    started = False
 
     for line in response.iter_lines():
         if not line:
             continue
         decoded = line.decode("utf-8")
-        if decoded.startswith("data: "):
-            chunk = decoded[6:]
-            if chunk == "[DONE]":
-                yield "data: [DONE]\n\n"
-                return
-            try:
-                delta = json.loads(chunk)["choices"][0]["delta"].get("content", "")
-                if delta:
-                    yield f"data: {delta}\n\n"
-            except (json.JSONDecodeError, KeyError):
-                continue
+        if not decoded.startswith("data: "):
+            continue
+        chunk = decoded[6:]
+
+        if chunk == "[DONE]":
+            if not started and buffer:  # aucun titre trouvé : on ne perd pas le contenu
+                yield _sse(buffer)
+            yield "data: [DONE]\n\n"
+            return
+
+        try:
+            delta = json.loads(chunk)["choices"][0]["delta"].get("content", "")
+        except (json.JSONDecodeError, KeyError, IndexError):
+            continue
+        if not delta:
+            continue
+
+        if started:
+            yield _sse(delta)
+            continue
+
+        buffer += delta
+        m = _FIRST_HEADING.search(buffer)
+        if m:
+            started = True
+            yield _sse(buffer[m.start(1):])
+        elif len(buffer) > 3000:  # sécurité : ne jamais bloquer indéfiniment
+            started = True
+            yield _sse(buffer)
 
 
 # ── Entry point ────────────────────────────────────────────────────────────

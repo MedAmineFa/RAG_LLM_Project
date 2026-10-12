@@ -92,7 +92,7 @@ def index_documents(chunks, embedding_model, force_reindex: bool = False):
 
 
 if __name__ == "__main__":
-    pdf_path = "ia_backend\\finance.pdf"
+    pdf_path = "/app/finance.pdf"
     try:
         documents = load_documents(pdf_path)
         chunks = split_documents(documents)

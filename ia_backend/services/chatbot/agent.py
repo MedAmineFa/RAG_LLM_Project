@@ -34,7 +34,7 @@ _FALLBACK_ANSWER = {
 }
 
 _lang_llm = ChatGroq(
-    model="meta-llama/llama-4-scout-17b-16e-instruct",
+    model="openai/gpt-oss-120b",
     api_key=os.getenv("API_KEY"),
     temperature=0,
     max_tokens=5,
@@ -65,7 +65,7 @@ def _nav_message(question: str) -> str:
 # ── LLM (shared, stateless) ────────────────────────────────────────────────────
 
 _llm = ChatGroq(
-    model="meta-llama/llama-4-scout-17b-16e-instruct",
+    model="openai/gpt-oss-120b",
     api_key=os.getenv("API_KEY"),
     temperature=0,
 )
